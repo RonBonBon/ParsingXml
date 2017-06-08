@@ -61,7 +61,10 @@ public class YnetFragment extends Fragment implements YnetDataSource.OnYnetArriv
             holder.tvTitle.setText(ynet.getTitle());
             holder.tvDescription.setText(ynet.getContent());
             Picasso.with(context)
-                    .load(ynet.getThumbnail()).into(holder.ivThumbnail);
+                    .load(ynet.getThumbnail())
+                    .placeholder(R.drawable.placeholder)
+                    .error(R.drawable.ic_menu_camera)
+                    .into(holder.ivThumbnail);
 
         }
 
