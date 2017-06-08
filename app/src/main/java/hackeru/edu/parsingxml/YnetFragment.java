@@ -95,6 +95,7 @@ public class YnetFragment extends Fragment implements YnetDataSource.OnYnetArriv
                 if (context instanceof FragmentActivity){
                     FragmentActivity activity = (FragmentActivity) context;
                     activity.getSupportFragmentManager().beginTransaction()
+                            .addToBackStack("ynet_list")
                             .replace(R.id.container, YnetArticleFragment.newInstance(link)).commit();
                 }
             }
