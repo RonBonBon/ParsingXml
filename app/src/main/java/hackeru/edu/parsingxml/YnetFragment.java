@@ -3,6 +3,7 @@ package hackeru.edu.parsingxml;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -73,7 +74,7 @@ public class YnetFragment extends Fragment implements YnetDataSource.OnYnetArriv
             return data.size();
         }
 
-        class YnetViewHolder extends RecyclerView.ViewHolder{
+        class YnetViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
             TextView tvTitle;
             TextView tvDescription;
             ImageView ivThumbnail;
@@ -82,6 +83,20 @@ public class YnetFragment extends Fragment implements YnetDataSource.OnYnetArriv
                 tvTitle = (TextView) itemView.findViewById(R.id.tvTitle);
                 tvDescription = (TextView) itemView.findViewById(R.id.tvDescription);
                 ivThumbnail = (ImageView) itemView.findViewById(R.id.ivThumbnail);
+
+                itemView.setOnClickListener(this);
+            }
+
+            @Override
+            public void onClick(View v) {
+                int position = getAdapterPosition();
+                String link = data.get(position).getLink();
+
+                if (context instanceof FragmentActivity){
+                    FragmentActivity activity = (FragmentActivity) context;
+                    activity.getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.container, YnetArticleFragment.newInstance(link)).commit();
+                }
             }
         }
     }
